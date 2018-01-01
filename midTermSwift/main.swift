@@ -8,5 +8,16 @@
 
 import Foundation
 
-print("Hello, World!")
+/// show cards in the game
+///
+/// - Parameter cards: array of string
+func show(cards:Array<String>){
+    for card in cards{
+        print("|\(card)|  ",terminator:"");
+        //print(_:separator:terminator:)
+    }
+    
+    print("")
+}
+
 
