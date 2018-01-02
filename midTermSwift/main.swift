@@ -21,3 +21,24 @@ func show(cards:Array<String>){
 }
 
 
+/// how to play this game
+
+print("\t\t\t\t\t\t\t\t\t\t\t\t  ยินดีต้อนรับสู่เกมจับคู่")
+
+var guildCards:Array<String> = Array(repeatElement("🀫", count: 10));
+guildCards[0] = "🎃"
+guildCards[2] = "🎃"
+show(cards: guildCards);
+print("");
+print("");
+print("#Rule#")
+
+
+//let frontCards = ["🎃","👻","🎃","👻","👽","🤖","🦄","👽","🤖","🦄"]
+//let backCard:Array<String> = Array(repeatElement("🀫", count: 10));
+//
+//show(cards: frontCards);
+//show(cards: backCard);
+
+
+
