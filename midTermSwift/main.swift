@@ -8,6 +8,16 @@
 
 import Foundation
 
+
+
+let frontCards = ["🎃","👻","🎃","👻","👽","🤖","🦄","👽","🤖","🦄"]
+let backCard:Array<String> = Array(repeatElement("🀫", count: 10));
+var cardInGame = backCard;
+var allFlip = 0;
+
+
+
+
 /// show cards in the game
 ///
 /// - Parameter cards: array of string
@@ -34,11 +44,26 @@ print("");
 print("#Rule#")
 
 
-//let frontCards = ["🎃","👻","🎃","👻","👽","🤖","🦄","👽","🤖","🦄"]
-//let backCard:Array<String> = Array(repeatElement("🀫", count: 10));
-//
-//show(cards: frontCards);
-//show(cards: backCard);
+
+
+
+
+/// calculate score from (card.count * 100) - allFlip
+///
+/// - Parameter allFlip:
+func calculateScoreFrom(allFlip:Int){
+    var score = cardInGame.count * 100;
+    score = score - allFlip;
+    show(score: score);
+}
+
+/// show score to player
+///
+/// - Parameter score: thsi score come from calculatedScore function
+func show(score:Int){
+    print("you get \(score) score")
+}
+
 
 
 
