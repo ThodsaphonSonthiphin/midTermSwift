@@ -12,7 +12,7 @@ let frontCards = ["🎃","👻","🎃","👻","👽","🤖","🦄","👽","🤖"
 let backCard:Array<String> = Array(repeatElement("🀫", count: 10));
 var cardInGame = backCard;
 var allFlip = 0;
-var locationOfCardsFromPlayer:Array<(Int,Int)> = [(0,2),(1,3),(4,7),(5,8),(6,9)]
+var locationOfCardsFromPlayer:Array<(Int,Int)> = [(10,10),(0,2),(1,3),(4,7),(-1,-10),(5,8),(6,9)]
 
 
 enum GameError:Error{
@@ -24,6 +24,12 @@ func checkLocationOf(card:(Int,Int))throws{
         throw GameError.outOfbound;
     }
     guard card.1 <= cardInGame.count-1 else {
+        throw GameError.outOfbound;
+    }
+    guard card.0 >= 0 else {
+        throw GameError.outOfbound;
+    }
+    guard card.1 >= 0 else {
         throw GameError.outOfbound;
     }
 }
@@ -114,19 +120,32 @@ func checkCard(){
         //fetch location from array and delete first
         let locationOfCards = locationOfCardsFromPlayer.removeFirst();
         
-        allFlip = allFlip + 2;
-        
-        if frontCards[locationOfCards.0] == frontCards[locationOfCards.1]{
-            
-            checkDiscriptionOfCard(aCard: frontCards[locationOfCards.0]);
-            checkDiscriptionOfCard(aCard: frontCards[locationOfCards.1]);
+        do {
+            try checkLocationOf(card: locationOfCards)
             
             
-            cardInGame[locationOfCards.0] = frontCards[locationOfCards.0];
-            cardInGame[locationOfCards.1] = frontCards[locationOfCards.1];
+            allFlip = allFlip + 2;
             
-            show(cards: cardInGame);
+            if frontCards[locationOfCards.0] == frontCards[locationOfCards.1]{
+                
+                checkDiscriptionOfCard(aCard: frontCards[locationOfCards.0]);
+                checkDiscriptionOfCard(aCard: frontCards[locationOfCards.1]);
+                
+                
+                cardInGame[locationOfCards.0] = frontCards[locationOfCards.0];
+                cardInGame[locationOfCards.1] = frontCards[locationOfCards.1];
+                
+                show(cards: cardInGame);
+            }
+            
+        } catch {
+            print(error)
+            
+            print("กรุณาใส่เลขให้ตรงตามจำนวนไพ่ที่มีในเกม")
+            print("");
+            print("");
         }
+        
         
         setBackCard = Set(backCard);
         setCardsInGame = Set(cardInGame);
@@ -156,11 +175,7 @@ case .play:
     checkCard();
     
 }
-do {
-    try checkLocationOf(card: (9,9))
-} catch {
-    print(error)
-}
+
 
 
 //print(DiscriptionOfCard.ghost);
